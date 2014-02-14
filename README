@@ -1,0 +1,2 @@
+downloads and copies static mac os x builds of ffmpeg and ffprobe
+from http://evermeet.cx/{ffmpeg,ffprobe} to /usr/local/bin
