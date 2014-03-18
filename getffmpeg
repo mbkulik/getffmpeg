@@ -8,8 +8,8 @@
 #
 
 if [ $# -ne 1 ]; then
-	echo "usage: $0 [version]"
-	exit 1
+    echo "usage: $0 [version]"
+    exit 1
 fi
 
 VERSION=$1
@@ -18,20 +18,31 @@ pushd /tmp &> /dev/null
 
 # Download the binaries
 if [ ! -f ffmpeg-$VERSION.7z ]; then
-	curl -O http://evermeet.cx/ffmpeg/ffmpeg-$VERSION.7z
+    curl -O http://evermeet.cx/ffmpeg/ffmpeg-$VERSION.7z
 fi 
 
 if [ ! -f ffprobe-$VERSION.7z ]; then
-	curl -O http://evermeet.cx/ffprobe/ffprobe-$VERSION.7z
+    curl -O http://evermeet.cx/ffprobe/ffprobe-$VERSION.7z
 fi
 
 # extract 7zip files
-7z e ffmpeg-$VERSION.7z
-7z e ffprobe-$VERSION.7z
+
+if [ -f ffmpeg-$VERSION.7z ]; then
+    7z e ffmpeg-$VERSION.7z
+fi
+
+if [ -f ffprobe-$VERSION.7z ]; then
+    7z e ffprobe-$VERSION.7z
+fi
 
 # move binaries into place
-mv ffmpeg /usr/local/bin
-mv ffprobe /usr/local/bin
+if [ -f ffmpeg ]; then
+    mv ffmpeg /usr/local/bin
+fi
+
+if [ -f ffprobe ]; then
+    mv ffprobe /usr/local/bin
+fi
 
 # cleanup
 rm *.7z
